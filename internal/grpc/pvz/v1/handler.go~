@@ -1,0 +1,26 @@
+package pvzv1
+
+import (
+	"context"
+	"google.golang.org/protobuf/types/known/timestamppb"
+)
+
+func (s *PVZServer) GetPVZList(ctx context.Context, req *GetPVZListRequest) (*GetPVZListResponse, error) {
+	pvzsInfo, err := s.pvzService.GetPvz(nil, nil, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var res []*PVZ
+	for _, pvzInfo := range pvzsInfo {
+		res = append(res, &PVZ{
+			Id:               p,
+			City:             string(pvzInfo.Pvz.City),
+			RegistrationDate: timestamppb.New(pvz.RegistrationDate),
+		})
+	}
+
+	return &GetPVZListResponse{
+		Pvzs: pvzs,
+	}, nil
+}
